@@ -1,0 +1,14 @@
+# Requirements for Counter
+
+fastapi~=0.85.1
+sqlalchemy~=1.4.42
+uvicorn~=0.19.0
+pydantic~=1.10.2
+pydantic[dotenv]
+
+python-jose
+passlib~=1.7.4
+python-multipart
+bcrypt
+
+numpy

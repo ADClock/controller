@@ -1,0 +1,15 @@
+# Requirements for Counter
+-r requirements.txt
+
+# Dev requirements for Counter
+pytest~=7.1.3
+pytest-cov
+codecov
+sphinx
+sphinx-rtd-theme
+sphinxcontrib-openapi
+mistune==0.8.4
+flake8
+
+MarkupSafe~=2.1.1
+setuptools~=65.5.0
