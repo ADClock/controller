@@ -1,8 +1,8 @@
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from counter import crud
-from counter.schemas import UserCreate
+from controller import crud
+from controller.schemas import UserCreate
 from tests.utils.utils import random_lower_string
 
 

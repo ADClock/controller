@@ -2,7 +2,7 @@ from fastapi import status
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from counter import crud
+from controller import crud
 from tests.utils.utils import random_lower_string
 
 

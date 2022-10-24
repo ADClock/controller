@@ -2,9 +2,9 @@ import logging
 
 # Import all models
 # noinspection PyUnresolvedReferences
-from counter import model  # noqa: F401
-from counter.database.base_class import Base
-from counter.database.session import engine, SessionLocal
+from controller import model  # noqa: F401
+from controller.database.base_class import Base
+from controller.database.session import engine, SessionLocal
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

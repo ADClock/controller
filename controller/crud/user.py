@@ -2,10 +2,10 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 
-from counter.core import security
-from counter.crud.base import CRUDBase
-from counter.model import User
-from counter.schemas import UserCreate, UserUpdate
+from controller.core import security
+from controller.crud.base import CRUDBase
+from controller.model import User
+from controller.schemas import UserCreate, UserUpdate
 
 
 # noinspection PyMethodMayBeStatic,PyArgumentList

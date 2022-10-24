@@ -6,9 +6,9 @@ from jose import jwt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from counter import model, schemas, crud
-from counter.core import settings, security
-from counter.database.session import SessionLocal
+from controller import model, schemas, crud
+from controller.core import settings, security
+from controller.database.session import SessionLocal
 
 
 def get_db() -> Generator:
