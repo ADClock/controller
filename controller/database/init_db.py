@@ -17,6 +17,8 @@ def check_connection():
     except Exception as e:
         logger.error(e)
         raise e
+    finally:
+        db.close()
 
 
 def create_all():
