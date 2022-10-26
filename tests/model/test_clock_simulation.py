@@ -3,7 +3,7 @@ from controller.model.instruction_receiver import HandInstruction
 
 
 def get_clock_simulation():
-    sim = ClockSimulation()
+    sim = ClockSimulation(x=0, y=0)
     sim.minute.current_position = 42
     sim.hour.current_position = 42
     return sim
