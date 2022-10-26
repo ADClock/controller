@@ -1,6 +1,9 @@
 import asyncio
 
 from fastapi import FastAPI
+from starlette import status
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
 from controller.adclock import adclock
 from controller.api import api_router
@@ -23,3 +26,11 @@ def init_database():
 @app.on_event("startup")
 async def run_simulation():
     asyncio.create_task(adclock.run_simulation())
+
+
+@app.exception_handler(Exception)
+async def exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content={"detail": str(exc)},
+    )
