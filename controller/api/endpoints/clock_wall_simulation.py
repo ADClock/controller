@@ -21,7 +21,8 @@ def get_simulation_wall(wall: ClockWall = Depends(deps.get_clock_wall)) -> List[
 
 @router.get("/id/{clock_id}", response_model=schemas.ClockSimulation,
             responses={404: {"description": "Clock not found"}})
-def get_simulated_clock(wall: ClockWall = Depends(deps.get_clock_wall), clock_id: int = 0) -> schemas.ClockSimulation:
+def get_simulated_clock_by_id(wall: ClockWall = Depends(deps.get_clock_wall),
+                              clock_id: int = 0) -> schemas.ClockSimulation:
     """
     Returns the simulated clock for the given id.
 
@@ -36,8 +37,8 @@ def get_simulated_clock(wall: ClockWall = Depends(deps.get_clock_wall), clock_id
 
 @router.get("/position/{x}/{y}", response_model=schemas.ClockSimulation,
             responses={404: {"description": "Clock not found"}})
-def get_simulated_clock(wall: ClockWall = Depends(deps.get_clock_wall),
-                        x: int = 0, y: int = 0) -> schemas.ClockSimulation:
+def get_simulated_clock_by_position(wall: ClockWall = Depends(deps.get_clock_wall),
+                                    x: int = 0, y: int = 0) -> schemas.ClockSimulation:
     """
     Returns the simulated clock for the given position.
 

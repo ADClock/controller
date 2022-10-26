@@ -15,4 +15,3 @@ def test_clock_wall_instruction_size():
     assert len(wall_instructions) == 2000
     assert len(wall_instructions[0].clock_instructions) == 24
     assert sys.getsizeof(wall_instructions) == 16184  # bytes
-
