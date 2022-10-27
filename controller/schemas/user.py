@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 # Shared properties
 class UserBase(BaseModel):
-    username: Optional[str] = None
+    pass
 
 
 # Properties to receive via API on creation
@@ -21,6 +21,7 @@ class UserUpdate(UserBase):
 
 class UserInDBBase(UserBase):
     id: Optional[int] = None
+    username: str
 
     class Config:
         orm_mode = True

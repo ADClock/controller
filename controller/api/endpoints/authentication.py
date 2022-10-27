@@ -25,8 +25,7 @@ def login(
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail="Incorrect username or password!")
-    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    token = security.create_access_token(user.id, expires_delta=access_token_expires)
+    token = security.create_access_token(user.id)
     return schemas.Token(access_token=token, token_type="bearer")
 
 

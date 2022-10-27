@@ -1,5 +1,6 @@
 from typing import Optional
 
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
 from controller.core import security
@@ -22,6 +23,12 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
         db.commit()
         db.refresh(db_obj)
         return db_obj
+
+    def update(self, db: Session, *, db_obj: User, obj_in: UserUpdate) -> User:
+        obj_data = jsonable_encoder(obj_in)
+        if obj_data['password']:
+            obj_data['hashed_password'] = security.get_password_hash(obj_in.password)
+        return super().update(db, db_obj=db_obj, obj_in=obj_data)
 
     def authenticate(self, db: Session, *, username: str, password: str):
         user = self.get_by_username(db, username=username)
