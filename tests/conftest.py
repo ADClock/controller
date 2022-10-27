@@ -7,7 +7,7 @@ from controller.app import app
 from controller.database.session import SessionLocal
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def db() -> Generator:
     yield SessionLocal()
 
