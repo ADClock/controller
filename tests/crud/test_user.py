@@ -21,13 +21,14 @@ def test_create_user_twice(db: Session) -> None:
     assert user_one.username == username
     assert hasattr(user_one, "hashed_password")
 
+    exception_caught = False
     try:
         crud.user.create(db, user=user_in)
     except IntegrityError as err:
         assert "username" in err.args[0]
-        return
+        exception_caught = True
 
-    raise Exception("User two should fail with IntegrityError")
+    assert exception_caught is True
 
 
 def test_update_user(db: Session) -> None:

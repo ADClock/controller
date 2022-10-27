@@ -7,8 +7,10 @@ from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
 from controller import model, schemas, crud
+from controller.adclock import adclock
 from controller.core import settings, security
 from controller.database.session import SessionLocal
+from controller.model.clock_wall import ClockWall
 
 
 def get_db() -> Generator:
@@ -41,3 +43,7 @@ def get_current_user(
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found.")
     return user
+
+
+def get_clock_wall() -> ClockWall:
+    return adclock.wall
