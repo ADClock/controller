@@ -23,6 +23,6 @@ def get_or_create_user(db: Session, username: str = random_lower_string()) -> mo
 def get_authentication_headers(client: TestClient,
                                username: str = "test",
                                password: str = "test") -> dict:
-    r = client.post("/auth/register", json={"username": username, "password": password})
+    client.post("/auth/register", json={"username": username, "password": password})
     r2 = client.post("/auth/login", data={"username": username, "password": password})
     return {"Authorization": "Bearer " + r2.json()['access_token']}
