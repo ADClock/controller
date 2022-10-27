@@ -1,8 +1,11 @@
+from datetime import timedelta
+
 from fastapi import status
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from controller import crud
+from controller.core.security import create_access_token
 from tests.utils.utils import random_lower_string
 
 
@@ -77,3 +80,26 @@ def test_test_token_endpoint(client: TestClient):
 def test_test_token_endpoint_with_invalid_token(client: TestClient):
     r = client.post("/auth/test-token", headers={"Authorization": "Bearer invalid"})
     assert r.status_code == status.HTTP_403_FORBIDDEN
+
+
+def test_test_token_endpoint_with_expired_token(client: TestClient):
+    payload = get_register_payload()
+    r = client.post("/auth/register", json=payload)
+    new_user = r.json()
+    assert r.status_code == status.HTTP_200_OK
+    assert new_user
+    assert new_user['username'] == payload['username']
+
+    valid_token = create_access_token(subject=new_user['id'], expires_delta=timedelta(seconds=60))
+    r2 = client.post("/auth/test-token", headers={"Authorization": f"Bearer {valid_token}"})
+    assert r2.status_code == status.HTTP_200_OK
+
+    expired_token = create_access_token(subject=new_user['id'], expires_delta=timedelta(seconds=-1))
+    r3 = client.post("/auth/test-token", headers={"Authorization": f"Bearer {expired_token}"})
+    assert r3.status_code == status.HTTP_403_FORBIDDEN
+
+
+def test_test_token_endpoint_with_invalid_subject(client: TestClient):
+    invalid_token = create_access_token(subject=42133742, expires_delta=timedelta(seconds=60))
+    r2 = client.post("/auth/test-token", headers={"Authorization": f"Bearer {invalid_token}"})
+    assert r2.status_code == status.HTTP_401_UNAUTHORIZED
